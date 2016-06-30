@@ -16,11 +16,9 @@
 -->
 
 <resources>
-    <color name="photo_placeholder">#ccc</color>
 
-    <color name="orange_500">#FF9800</color>
-    <color name="orange_700">#F57C00</color>
-    <color name="blue_a200">#448AFF</color>
-    <color name="ltgray">#ffe0e0e0</color>
-    <color name="photo_placeholder_dark">#333</color>
+    <style name="Theme.Bacon.Detail">
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
 </resources>
