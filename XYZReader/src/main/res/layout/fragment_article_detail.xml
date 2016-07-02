@@ -24,7 +24,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         tools:src="@drawable/logo"
-                        android:background="@color/photo_placeholder_dark"/>
+                        android:background="@color/photo_placeholder_dark"
+                        android:transitionName="@string/transitionPhoto"/>
 
                 <View
                         android:layout_width="match_parent"
