@@ -3,7 +3,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/draw_insets_frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/ltgray">
 
     <com.example.xyzreader.ui.ObservableScrollView
             android:id="@+id/scrollview"
@@ -23,33 +24,33 @@
                         android:id="@+id/photo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        tools:src="@drawable/logo"
-                        android:background="@color/photo_placeholder_dark"
-                        android:transitionName="@string/transitionPhoto"/>
+                        android:src="@drawable/empty_detail"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:background="@color/photo_placeholder_dark"/>
 
                 <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/scrim_gradient"/>
 
-                <com.example.xyzreader.ui.MaxWidthLinearLayout
-                        android:orientation="vertical"
+                <TextView
+                        android:id="@+id/article_title"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:maxWidth="@dimen/detail_card_max_width">
-                    <TextView
-                            android:id="@+id/article_title"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="16dp"
-                            android:gravity="bottom"
-                            style="TextAppearance.AppCompat.Display1"
-                            android:textColor="#fff"
-                            android:textSize="@dimen/detail_title_text_size"
-                            android:lineSpacingMultiplier="0.9"
-                            tools:text="Mysteries of the Universe Solved"/>
+                        android:layout_gravity="center"
+                        android:gravity="bottom"
+                        android:maxWidth="600dp"
+                        android:paddingLeft="@dimen/detail_inner_horiz_margin"
+                        android:paddingRight="@dimen/detail_inner_horiz_margin"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp"
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:textColor="#fff"
+                        android:textSize="@dimen/detail_title_text_size"
+                        android:lineSpacingMultiplier="0.9"
+                        tools:text="Mysteries of the Universe Solved"/>
 
-                </com.example.xyzreader.ui.MaxWidthLinearLayout>
 
             </FrameLayout>
 
@@ -59,7 +60,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:maxWidth="@dimen/detail_card_max_width"
-            >
+                    android:elevation="8dp"
+                    android:background="#fff">
                 <!--android:layout_marginTop="@dimen/detail_card_top_margin"-->
 
                 <!--<LinearLayout-->
@@ -75,9 +77,12 @@
                         android:id="@+id/article_byline"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="8dp"
-                        android:background="?colorPrimary"
-                        style="@style/TextAppearance.AppCompat.Subhead"
+                        android:paddingLeft="@dimen/detail_inner_horiz_margin"
+                        android:paddingRight="@dimen/detail_inner_horiz_margin"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:background="@color/photo_placeholder_dark"
+                        style="@style/TextAppearance.AppCompat.Caption"
                         android:textColor="#8fff"
                         tools:text="Jun 20, 2013 by Carl Sagan"/>
                 <!--</LinearLayout>-->
@@ -87,12 +92,12 @@
                         android:id="@+id/article_body"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/detail_inner_horiz_margin"
-                        android:layout_marginRight="@dimen/detail_inner_horiz_margin"
+                        android:paddingLeft="@dimen/detail_inner_horiz_margin"
+                        android:paddingRight="@dimen/detail_inner_horiz_margin"
                         android:layout_marginTop="@dimen/detail_body_top_margin"
                         android:paddingBottom="@dimen/detail_body_bottom_margin"
                         style="TextAppearance.AppCompat.Body1"
-                        android:textSize="14sp"
+                        android:textSize="15sp"
                         android:textColorLink="?colorAccent"
                         tools:text="Lorem ipsum dolor sit amet, decore libris erroribus qui no, in tota expetendis duo, duo id prompta insolens. Posse postea vocent pri at, sed veri clita complectitur in, nostrum mediocritatem qui id. Elitr moderatius per id. Has in vocent aeterno reformidans, cum commune electram et. Nostrud bonorum eam et, qualisque reprimique ut sed, id purto consectetuer vis.
 

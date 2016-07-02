@@ -14,15 +14,16 @@ import android.content.IntentFilter;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -31,12 +32,11 @@ import android.widget.TextView;
  * touched, lead to a {@link ArticleDetailActivity} representing item details. On tablets, the
  * activity presents a grid of items as cards.
  */
-public class ArticleListActivity extends ActionBarActivity implements
+public class ArticleListActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
     private Toolbar mToolbar;
 
-    //        private SwipeRefreshLayout mSwipeRefreshLayout;
     private Snackbar mSnackbar;
 
     private RecyclerView mRecyclerView;
@@ -47,12 +47,35 @@ public class ArticleListActivity extends ActionBarActivity implements
         setContentView(R.layout.activity_article_list);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
 
-//        final View toolbarContainerView = findViewById(R.id.toolbar_container);
-//        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+//        Hides title text in CollapsingToolar expanded mode
+        final CollapsingToolbarLayout collapsingToolbarLayout
+                = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout);
+        setTitle("");
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            boolean isShow = false;
+
+            int scrollRange = -1;
+
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (scrollRange == -1) {
+                    scrollRange = appBarLayout.getTotalScrollRange();
+                }
+                if (scrollRange + verticalOffset == 0) {
+                    collapsingToolbarLayout.setTitle(getString(R.string.app_name));
+                    isShow = true;
+                } else if (isShow) {
+                    collapsingToolbarLayout.setTitle("");
+                    isShow = false;
+                }
+            }
+        });
+
         mSnackbar = Snackbar.make(findViewById(android.R.id.content), R.string.loading,
                 Snackbar.LENGTH_INDEFINITE);
-
         mSnackbar.setAction(R.string.loading, null).setDuration(Snackbar.LENGTH_INDEFINITE);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -145,13 +168,14 @@ public class ArticleListActivity extends ActionBarActivity implements
                 public void onClick(View view) {
                     Intent intent = new Intent(Intent.ACTION_VIEW,
                             ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition())));
+
                     if (android.os.Build.VERSION.SDK_INT
                             >= android.os.Build.VERSION_CODES.LOLLIPOP) {
 
-                        ImageView imageView = (ImageView) view.findViewById(R.id.thumbnail);
+//                        ImageView imageView = (ImageView) view.findViewById(R.id.thumbnail);
                         Bundle bundle = ActivityOptions
-                                .makeSceneTransitionAnimation(ArticleListActivity.this, imageView,
-                                        imageView.getTransitionName()).toBundle();
+                                .makeSceneTransitionAnimation(ArticleListActivity.this, view,
+                                        view.getTransitionName()).toBundle();
                         startActivity(intent, bundle);
                     } else {
                         startActivity(intent);
